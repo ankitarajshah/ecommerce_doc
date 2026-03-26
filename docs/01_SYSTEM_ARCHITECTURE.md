@@ -7,16 +7,30 @@
 
 ---
 
+> **💡 FREE TIER DEPLOYMENT:**  
+> This document describes the full enterprise architecture. For **zero-cost MVP deployment**, see [09_FREE_TIER_DEPLOYMENT.md](./09_FREE_TIER_DEPLOYMENT.md) which uses:
+> - **Render.com** (Backend) instead of AWS ECS
+> - **Vercel** (Frontend) instead of CloudFront
+> - **Neon.tech** (PostgreSQL) instead of RDS
+> - **Upstash** (Redis) instead of ElastiCache
+> - **Cloudinary** (Storage) instead of S3
+> - **PostgreSQL Full-Text Search** instead of Elasticsearch
+>
+> The free tier supports **500-1000 users at $0/month**. Scale to paid services when needed.
+
+---
+
 ## 📋 Table of Contents
 
 1. [Architecture Overview](#architecture-overview)
 2. [High-Level Architecture](#high-level-architecture)
-3. [Technology Stack](#technology-stack)
-4. [Infrastructure Architecture](#infrastructure-architecture)
-5. [Network Architecture](#network-architecture)
-6. [Scalability Strategy](#scalability-strategy)
-7. [Performance Requirements](#performance-requirements)
-8. [Disaster Recovery](#disaster-recovery)
+3. [Free Tier Architecture](#free-tier-architecture)
+4. [Technology Stack](#technology-stack)
+5. [Infrastructure Architecture](#infrastructure-architecture)
+6. [Network Architecture](#network-architecture)
+7. [Scalability Strategy](#scalability-strategy)
+8. [Performance Requirements](#performance-requirements)
+9. [Disaster Recovery](#disaster-recovery)
 
 ---
 
@@ -167,7 +181,110 @@
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 2.2 Component Interaction Flow
+---
+
+## 2.3 Free Tier Architecture (MVP Launch - $0/month)
+
+> **🎯 Recommended for Initial Launch (0-1000 users)**
+
+This simplified architecture uses **100% free services** while maintaining the same functionality:
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    CLIENT LAYER (Same as above)                          │
+│  Web App (React.js) | Admin Panel | Agent Portal                        │
+└────────────────────────────────────┬────────────────────────────────────┘
+                                     │
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                  FRONTEND HOSTING (Vercel - Free)                        │
+│  ✅ Unlimited bandwidth & deploys                                        │
+│  ✅ Global CDN (300+ edge locations)                                     │
+│  ✅ Auto SSL certificates                                                │
+│  ✅ Git-based auto deployment                                            │
+└────────────────────────────────────┬────────────────────────────────────┘
+                                     │ API Calls
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│               BACKEND HOSTING (Render.com - 750hrs/month Free)           │
+│                                                                           │
+│  ┌─────────────────────────────────────────────────────────────────┐   │
+│  │  Node.js + Express.js + TypeScript                               │   │
+│  │  ✅ Auto-deploy from GitHub                                      │   │
+│  │  ✅ Free SSL certificates                                        │   │
+│  │  ✅ Health check monitoring                                      │   │
+│  │  ⚠️  Spins down after 15 min inactivity (30s cold start)        │   │
+│  └─────────────────────────────────────────────────────────────────┘   │
+│                                                                           │
+│  All backend modules run in single instance:                             │
+│  • Authentication  • Products  • Orders  • Inventory                     │
+│  • Manufacturing  • CRM  • Analytics  • Notifications                    │
+└────────────────────────────────────┬───────────────────────────────────┘
+                                     │
+              ┌──────────────────────┼──────────────────────┐
+              │                      │                      │
+              ▼                      ▼                      ▼
+┌──────────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+│   Neon.tech (Free)   │  │ Upstash (Free)   │  │ Cloudinary(Free) │
+│   PostgreSQL 15      │  │   Redis Cache    │  │  Image Storage   │
+├──────────────────────┤  ├──────────────────┤  ├──────────────────┤
+│ ✅ 10GB storage      │  │ ✅ 10K cmds/day  │  │ ✅ 25GB storage  │
+│ ✅ 100hrs compute    │  │ ✅ Global edge   │  │ ✅ 25GB bandwidth│
+│ ✅ Auto-pause idle   │  │ ✅ REST & TCP    │  │ ✅ Transform API │
+│ ✅ Connection pool   │  │ ✅ No expiry     │  │ ✅ CDN included  │
+│ ✅ Branching         │  │ ⚠️  Daily limit  │  │ ✅ Optimization  │
+└──────────────────────┘  └──────────────────┘  └──────────────────┘
+                                                          │
+              ┌──────────────────────┬────────────────────┘
+              │                      │
+              ▼                      ▼
+┌──────────────────────┐  ┌──────────────────────┐
+│   Resend (Free)      │  │   Sentry (Free)      │
+│   Email Service      │  │   Error Tracking     │
+├──────────────────────┤  ├──────────────────────┤
+│ ✅ 3K emails/month   │  │ ✅ 5K errors/month   │
+│ ✅ 100 emails/day    │  │ ✅ 30-day retention  │
+│ ✅ Domain verify     │  │ ✅ Source maps       │
+│ ✅ Templates         │  │ ✅ User feedback     │
+└──────────────────────┘  └──────────────────────┘
+```
+
+### Free Tier Service Comparison
+
+| Component | Enterprise (AWS) | Free Tier | Trade-offs |
+|-----------|------------------|-----------|------------|
+| **Backend** | ECS Fargate ($50-100/mo) | Render.com (Free) | 15min sleep, cold starts |
+| **Database** | RDS ($50-100/mo) | Neon.tech (Free) | 10GB limit, auto-pause |
+| **Cache** | ElastiCache ($20-50/mo) | Upstash (Free) | 10K/day limit |
+| **Storage** | S3 + CloudFront ($20-50/mo) | Cloudinary (Free) | 25GB bandwidth/mo |
+| **Search** | Elasticsearch ($30-50/mo) | PostgreSQL FTS (Free) | Less features |
+| **Email** | SES ($10-20/mo) | Resend (Free) | 3K emails/month |
+| **Errors** | Datadog ($30-50/mo) | Sentry (Free) | 5K errors/month |
+| **Frontend** | CloudFront ($10-20/mo) | Vercel (Free) | None - Better! |
+| **Total** | **$220-440/month** | **$0/month** | See scaling plan |
+
+### When to Upgrade from Free Tier
+
+**Upgrade Indicators:**
+- 🚨 Consistent 500+ concurrent users
+- 🚨 > 8GB database size
+- 🚨 > 8K Redis commands/day
+- 🚨 > 20GB bandwidth/month on Cloudinary
+- 🚨 > 2,500 emails/month
+- 🚨 Cold starts impacting UX
+- 🚨 Need 99.9% uptime SLA
+
+**Recommended Upgrade Path:**
+1. **Phase 1 ($0/mo):** Free tier → 0-1K users
+2. **Phase 2 ($30-50/mo):** Render Starter + Neon Launch → 1K-5K users
+3. **Phase 3 ($200-500/mo):** DigitalOcean/Railway → 5K-50K users  
+4. **Phase 4 ($1K+/mo):** AWS Enterprise → 50K+ users
+
+See [09_FREE_TIER_DEPLOYMENT.md](./09_FREE_TIER_DEPLOYMENT.md) for complete setup guide.
+
+---
+
+## 2.4 Component Interaction Flow
 
 ```
 ┌──────────┐      HTTP/HTTPS      ┌──────────────┐      SQL        ┌──────────┐

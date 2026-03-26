@@ -8,6 +8,19 @@
 
 ---
 
+> **💡 FREE TIER DEPLOYMENT:**  
+> Frontend deploys to **Vercel** (free tier) with these benefits:
+> - ✅ Unlimited deployments and bandwidth
+> - ✅ Global CDN (300+ edge locations)
+> - ✅ Automatic SSL certificates
+> - ✅ Git-based deployments
+> - ✅ Environment variables management
+> - ✅ Better than AWS CloudFront for free!
+>
+> See [09_FREE_TIER_DEPLOYMENT.md](./09_FREE_TIER_DEPLOYMENT.md) for deployment guide.
+
+---
+
 ## 📋 Table of Contents
 
 1. [Architecture Overview](#architecture-overview)

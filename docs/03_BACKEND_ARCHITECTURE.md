@@ -8,6 +8,17 @@
 
 ---
 
+> **💡 FREE TIER CONFIGURATION:**  
+> This document includes Elasticsearch examples, but for **free tier deployment**:
+> - Use **PostgreSQL Full-Text Search** instead of Elasticsearch (saves $30-50/month)
+> - Use **Cloudinary SDK** instead of AWS S3 SDK (free tier: 25GB)
+> - Use **Upstash Redis** with REST API (free tier: 10K/day)
+> - All code examples are adaptable - see notes in each section
+>
+> See [09_FREE_TIER_DEPLOYMENT.md](./09_FREE_TIER_DEPLOYMENT.md) for free tier setup.
+
+---
+
 ## 📋 Table of Contents
 
 1. [Architecture Overview](#architecture-overview)

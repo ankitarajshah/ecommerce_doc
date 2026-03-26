@@ -23,10 +23,7 @@ This enterprise platform documentation is organized into modular, production-rea
 | 06 | **Project Flow & Workflows** | [06_PROJECT_FLOW.md](./06_PROJECT_FLOW.md) | Business process flows, user journeys | ✅ Complete |
 | 07 | **SOP Engine** | [07_SOP_ENGINE.md](./07_SOP_ENGINE.md) | Standard Operating Procedures automation | ✅ Complete |
 | 08 | **Business Logic & Rules** | [08_BUSINESS_LOGIC.md](./08_BUSINESS_LOGIC.md) | Domain rules, validation, calculations | ✅ Complete |
-| 09 | **Security & Compliance** | [09_SECURITY_COMPLIANCE.md](./09_SECURITY_COMPLIANCE.md) | Authentication, authorization, data protection | ✅ Complete |
-| 10 | **DevOps & Deployment** | [10_DEVOPS_DEPLOYMENT.md](./10_DEVOPS_DEPLOYMENT.md) | CI/CD, monitoring, infrastructure as code | ✅ Complete |
-| 11 | **Testing Strategy** | [11_TESTING_STRATEGY.md](./11_TESTING_STRATEGY.md) | Unit, integration, E2E, load testing | ✅ Complete |
-| 12 | **Integration Guides** | [12_INTEGRATION_GUIDES.md](./12_INTEGRATION_GUIDES.md) | Third-party APIs, marketplace integrations | ✅ Complete |
+| 09 | **Free Tier Deployment** | [09_FREE_TIER_DEPLOYMENT.md](./09_FREE_TIER_DEPLOYMENT.md) | Zero-cost deployment guide for MVP launch | ✅ Complete |
 
 ---
 
@@ -45,36 +42,63 @@ This enterprise platform documentation is organized into modular, production-rea
 
 ### For DevOps Engineers:
 1. Review [System Architecture](./01_SYSTEM_ARCHITECTURE.md)
-2. Implement [DevOps & Deployment](./10_DEVOPS_DEPLOYMENT.md)
-3. Configure [Security & Compliance](./09_SECURITY_COMPLIANCE.md)
+2. **START HERE:** [Free Tier Deployment Guide](./09_FREE_TIER_DEPLOYMENT.md)
+3. Study [Backend Architecture](./03_BACKEND_ARCHITECTURE.md)
+
+---
+
+## 🆓 Free Tier Stack (Recommended for MVP)
+
+### Zero-Cost Infrastructure
+- **Backend Hosting:** Render.com (750 hrs/month free)
+- **Frontend Hosting:** Vercel (Unlimited free)
+- **Database:** Neon.tech (10GB PostgreSQL free)
+- **Cache:** Upstash (10K Redis commands/day free)
+- **File Storage:** Cloudinary (25GB free)
+- **Email:** Resend (3,000 emails/month free)
+- **Error Tracking:** Sentry (5,000 errors/month free)
+- **CI/CD:** GitHub Actions (Free for public repos)
+
+**Total Cost:** $0/month  
+**Capacity:** 500-1000 active users
+
+See [09_FREE_TIER_DEPLOYMENT.md](./09_FREE_TIER_DEPLOYMENT.md) for complete setup guide.
 
 ---
 
 ## 🛠️ Technology Stack
 
-### Backend
+### Backend (Free Tier)
 - **Runtime:** Node.js 20 LTS
-- **Framework:** Express.js
-- **Language:** TypeScript
-- **Database:** PostgreSQL 15+
+- **Framework:** Express.js 4.x
+- **Language:** TypeScript 5.x
+- **Database:** PostgreSQL 15+ (Neon.tech)
 - **Queue:** Graphile Worker
-- **Cache:** Redis 7+
-- **Search:** Elasticsearch 8+
+- **Cache:** Redis 7+ (Upstash)
+- **Search:** PostgreSQL Full-Text Search
 
-### Frontend
+### Frontend (Free Tier)
 - **Framework:** React.js 18+
 - **Language:** TypeScript
 - **State:** Redux Toolkit + React Query
 - **UI:** Tailwind CSS + Headless UI
-- **Build:** Vite
+- **Build:** Vite 5.x
 
-### Infrastructure
-- **Cloud:** AWS
-- **Container:** Docker
-- **Orchestration:** AWS ECS
+### Infrastructure (Free Tier)
+- **Backend Host:** Render.com (750 hrs/month)
+- **Frontend Host:** Vercel (Unlimited)
+- **Database:** Neon.tech (10GB PostgreSQL)
+- **Cache:** Upstash Redis (10K/day)
+- **Storage:** Cloudinary (25GB)
+- **Email:** Resend (3K/month)
+- **Errors:** Sentry (5K/month)
 - **CI/CD:** GitHub Actions
-- **Monitoring:** CloudWatch + Prometheus
-- **Logging:** ELK Stack
+
+### Scaling Path (When Needed)
+- **Phase 1 (0-1K users):** Free tier → $0/month
+- **Phase 2 (1K-5K users):** Low-cost upgrades → $30-50/month
+- **Phase 3 (5K-50K users):** Managed services → $200-500/month
+- **Phase 4 (50K+ users):** AWS/Enterprise → $1000+/month
 
 ---
 
