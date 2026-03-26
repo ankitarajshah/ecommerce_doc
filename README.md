@@ -37,7 +37,7 @@ A comprehensive, scalable, enterprise-grade web platform for men's clothing manu
 
 ## 📚 Documentation
 
-Complete technical documentation with **12,250+ lines** across **8 comprehensive guides**:
+Complete technical documentation with **20,000+ lines** across **12 comprehensive guides**:
 
 | Document | Size | Description |
 |----------|------|-------------|
@@ -50,8 +50,12 @@ Complete technical documentation with **12,250+ lines** across **8 comprehensive
 | [06_PROJECT_FLOW.md](docs/06_PROJECT_FLOW.md) | 58KB | Business workflows |
 | [07_SOP_ENGINE.md](docs/07_SOP_ENGINE.md) | 44KB | Approval workflows |
 | [08_BUSINESS_LOGIC.md](docs/08_BUSINESS_LOGIC.md) | 37KB | Domain rules & calculations |
+| [09_SECURITY_COMPLIANCE.md](docs/09_SECURITY_COMPLIANCE.md) | 52KB | Security, compliance & audit |
+| [10_DEVOPS_DEPLOYMENT.md](docs/10_DEVOPS_DEPLOYMENT.md) | 48KB | CI/CD, infrastructure, monitoring |
+| [11_TESTING_STRATEGY.md](docs/11_TESTING_STRATEGY.md) | 45KB | Testing frameworks & strategies |
+| [12_INTEGRATION_GUIDES.md](docs/12_INTEGRATION_GUIDES.md) | 42KB | Third-party integrations |
 
-**Total Documentation:** 425KB
+**Total Documentation:** 612KB+
 
 ## 🎯 Key Features
 
